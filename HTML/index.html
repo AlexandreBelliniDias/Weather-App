@@ -10,10 +10,11 @@
 </head>
 
 <body id="body">
-	<input id = "cityInput" onfocus="this.value=''" type = "text" placeholder = "Enter city here"> 
-	<input type = "submit" name = "button" onclick = "fun()"> 
-
-	<div class="hero"> 
+<div id="searchBar">
+	<input id = "cityInput" onfocus="this.value=''" type = "text" placeholder = "Enter city name"> 
+	<button type = "submit" name = "button" onclick = "fun()">Search</button>
+</div>
+	<div id="main" class="hero"> 
 		<div class="container">
 			<div class="row">
 				<div id="" class="col-8 mx-auto weather">
@@ -48,18 +49,18 @@
 	</div>
 	
 	<script>
-		
+	
 		function fun() { 
 			
 			var url= document.getElementById("cityInput").value;
 			url = 'http://api.openweathermap.org/data/2.5/weather?q=' + url + '&APPID=58a79b5362d491e694efaa88209d5241'
 
 			
-		
 
 		fetch(url)
 			.then((resp) => resp.json())
 			.then(function (data) {
+				document.getElementById("main").style.display = "block";
 				
 				let temperatureToCel = Math.round(data.main.temp -273.15);
 				let feels_likeToCel = Math.round(data.main.feels_like -273.15);
@@ -95,7 +96,6 @@
 				document.getElementById('clouds').innerHTML = '<i class="wi wi-cloud"></i>' + '<span> Clouds<br>' + `${data.clouds.all}` +' %</span>';
 
 				document.getElementById("cityInput").style.color = 'black';
-
 
 				// background and icon change
 				if(data.weather[0].main == 'Clear'){
@@ -147,6 +147,7 @@
 				
 			});
 		}
+		
 	</script>
 
 </body>
